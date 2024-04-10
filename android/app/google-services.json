@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "63175124233",
+    "project_id": "goa-dental-solutions-6e0c8",
+    "storage_bucket": "goa-dental-solutions-6e0c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63175124233:android:0bd32dbee30036b51d5fd8",
+        "android_client_info": {
+          "package_name": "com.example.goa_dental_clinic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63175124233-bqghge672bmlp0ln92i98p15bol69tqb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN8_8Rs3DdDwl9mjSd-Y2ZhUVYhaFN3WI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63175124233-bqghge672bmlp0ln92i98p15bol69tqb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "63175124233-s577tq06s59rb5iclv5g447sf8biq32s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.goaDentalClinic"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
