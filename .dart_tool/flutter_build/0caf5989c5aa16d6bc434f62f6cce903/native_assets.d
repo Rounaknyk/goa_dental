@@ -1,0 +1,1 @@
+ /Users/ron18/AndroidStudioProjects/goa_dental_clinic/.dart_tool/flutter_build/0caf5989c5aa16d6bc434f62f6cce903/native_assets.yaml: 
