@@ -7,10 +7,12 @@ import 'package:goa_dental_clinic/models/plan_model.dart';
 import 'package:goa_dental_clinic/screens/doctor_screens/calendar_screen2.dart';
 
 class DonePlanCard extends StatelessWidget {
-  DonePlanCard({required this.plan, required this.toothList, required this.pm});
+  DonePlanCard({required this.plan, required this.toothList, required this.pm, required this.note, required this.time});
   String plan;
   PatientModel pm;
+  String time;
   List<dynamic> toothList;
+  String note;
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +23,30 @@ class DonePlanCard extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(12),),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text('${plan}'),
-              SizedBox(height: 8,),
-              Wrap(
-                children: toothList.map((e) {
-                  return FixedSizeTooth(
-                    index: e,
-                    onTap: () {},
-                    height: 40,
-                    width: 40,
-                  );
-                }).toList(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('${plan}'),
+                  SizedBox(height: 8,),
+                  Wrap(
+                    children: toothList.map((e) {
+                      return FixedSizeTooth(
+                        index: e,
+                        onTap: () {},
+                        height: 40,
+                        width: 40,
+                      );
+                    }).toList(),
+                  ),
+                  note.isEmpty ? Container() : SizedBox(height: 8,),
+                  note.isEmpty ? Container() : Text('$note'),
+                ],
               ),
+              Spacer(),
+              Text('${time}'),
             ],
           ),
         ),

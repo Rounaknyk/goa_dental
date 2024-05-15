@@ -66,6 +66,7 @@ class _ToothSelectionWidgetState extends State<ToothSelectionWidget> {
         child: Center(
           child: Container(
             height: (orientation == Orientation.portrait) ? MediaQuery.of(context).size.height * 0.5 : MediaQuery.of(context).size.height * 0.6,
+            width: (orientation == Orientation.landscape) ? MediaQuery.of(context).size.width * 0.95 : null,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(16),
@@ -76,6 +77,7 @@ class _ToothSelectionWidgetState extends State<ToothSelectionWidget> {
                     children: [
                       Expanded(
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ListView.builder(
@@ -104,8 +106,8 @@ class _ToothSelectionWidgetState extends State<ToothSelectionWidget> {
                                 );
                               },
                               itemCount: 8,
-                              scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
                             ),
                           ],
                         ),
@@ -115,6 +117,8 @@ class _ToothSelectionWidgetState extends State<ToothSelectionWidget> {
                       ),
                       Expanded(
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
+
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ListView.builder(
@@ -154,6 +158,8 @@ class _ToothSelectionWidgetState extends State<ToothSelectionWidget> {
                       ),
                       Expanded(
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
+
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ListView.builder(
@@ -190,6 +196,8 @@ class _ToothSelectionWidgetState extends State<ToothSelectionWidget> {
                       ),
                       Expanded(
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
+
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ListView.builder(
@@ -232,6 +240,7 @@ class _ToothSelectionWidgetState extends State<ToothSelectionWidget> {
                                   Navigator.pop(context);
                               }),
                           height: 60,
+                          width: 250,
                         ),
                       ),
                     ],
@@ -239,25 +248,100 @@ class _ToothSelectionWidgetState extends State<ToothSelectionWidget> {
                 : SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                        children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: ListView.builder(
-                                    itemBuilder: (context, index) {
-                                      var newIndex = 28 - index;
-                                      bool initialValue = false;
-                                      toothList.forEach((element) {
-                                        if (element == newIndex) {
-                                          initialValue = true;
-                                        }
-                                      });
-                                      return Padding(
-                                        padding: const EdgeInsets.all(0.5),
-                                        child: Tooth(
+                    child: Container(
+                      child: Column(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: ListView.builder(
+                                      itemBuilder: (context, index) {
+                                        var newIndex = 28 - index;
+                                        bool initialValue = false;
+                                        toothList.forEach((element) {
+                                          if (element == newIndex) {
+                                            initialValue = true;
+                                          }
+                                        });
+                                        return Padding(
+                                          padding: const EdgeInsets.all(0.5),
+                                          child: Tooth(
+                                              index: newIndex,
+                                              initialValue: initialValue,
+                                              onTap: (toothNumber, isSelected) {
+                                                // print(toothNumber);
+                                                if (!isSelected) {
+                                                  toothList.remove(toothNumber);
+                                                } else {
+                                                  toothList.add(toothNumber);
+                                                }
+                                                // toothList.add(toothNumber);
+                                              }),
+                                        );
+                                      },
+                                      itemCount: 8,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        ListView.builder(
+                                          itemBuilder: (context, index) {
+                                            var newIndex = 11 + index;
+                                            bool initialValue = false;
+                                            toothList.forEach((element) {
+                                              if (element == newIndex) {
+                                                initialValue = true;
+                                              }
+                                            });
+                                            return Padding(
+                                              padding: const EdgeInsets.all(2.0),
+                                              child: Tooth(
+                                                  index: newIndex,
+                                                  initialValue: initialValue,
+                                                  onTap: (toothNumber, isSelected) {
+                                                    // print(toothNumber);
+                                                    if (!isSelected) {
+                                                      toothList.remove(toothNumber);
+                                                    } else {
+                                                      toothList.add(toothNumber);
+                                                    }
+                                                    // toothList.add(toothNumber);
+                                                  }),
+                                            );
+                                          },
+                                          itemCount: 8,
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: ListView.builder(
+                                      itemBuilder: (context, index) {
+                                        var newIndex = 38 - index;
+                                        bool initialValue = false;
+                                        toothList.forEach((element) {
+                                          if (element == newIndex) {
+                                            initialValue = true;
+                                          }
+                                        });
+                                        return Tooth(
                                             index: newIndex,
                                             initialValue: initialValue,
                                             onTap: (toothNumber, isSelected) {
@@ -268,153 +352,84 @@ class _ToothSelectionWidgetState extends State<ToothSelectionWidget> {
                                                 toothList.add(toothNumber);
                                               }
                                               // toothList.add(toothNumber);
-                                            }),
-                                      );
-                                    },
-                                    itemCount: 8,
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    children: [
-                                      ListView.builder(
-                                        itemBuilder: (context, index) {
-                                          var newIndex = 11 + index;
-                                          bool initialValue = false;
-                                          toothList.forEach((element) {
-                                            if (element == newIndex) {
-                                              initialValue = true;
-                                            }
-                                          });
-                                          return Padding(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: Tooth(
-                                                index: newIndex,
-                                                initialValue: initialValue,
-                                                onTap: (toothNumber, isSelected) {
-                                                  // print(toothNumber);
-                                                  if (!isSelected) {
-                                                    toothList.remove(toothNumber);
-                                                  } else {
-                                                    toothList.add(toothNumber);
-                                                  }
-                                                  // toothList.add(toothNumber);
-                                                }),
-                                          );
-                                        },
-                                        itemCount: 8,
-                                        scrollDirection: Axis.horizontal,
-                                        shrinkWrap: true,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: ListView.builder(
-                                    itemBuilder: (context, index) {
-                                      var newIndex = 38 - index;
-                                      bool initialValue = false;
-                                      toothList.forEach((element) {
-                                        if (element == newIndex) {
-                                          initialValue = true;
-                                        }
-                                      });
-                                      return Tooth(
-                                          index: newIndex,
-                                          initialValue: initialValue,
-                                          onTap: (toothNumber, isSelected) {
-                                            // print(toothNumber);
-                                            if (!isSelected) {
-                                              toothList.remove(toothNumber);
-                                            } else {
-                                              toothList.add(toothNumber);
-                                            }
-                                            // toothList.add(toothNumber);
-                                          });
-                                    },
-                                    itemCount: 8,
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: ListView.builder(
-                                          itemBuilder: (context, index) {
-                                            var newIndex = 41 + index;
-                                            bool initialValue = false;
-                                            toothList.forEach((element) {
-                                              if (element == newIndex) {
-                                                initialValue = true;
-                                              }
                                             });
-                                            return Tooth(
-                                                index: newIndex,
-                                                initialValue: initialValue,
-                                                onTap: (toothNumber, isSelected) {
-                                                  // print(toothNumber);
-                                                  if (!isSelected) {
-                                                    toothList.remove(toothNumber);
-                                                  } else {
-                                                    toothList.add(toothNumber);
-                                                  }
-                                                  // toothList.add(toothNumber);
-                                                });
-                                          },
-                                          itemCount: 8,
-                                          scrollDirection: Axis.horizontal,
-                                          shrinkWrap: true,
-                                        ),
-                                      ),
-                                    ],
+                                      },
+                                      itemCount: 8,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Expanded(
+                                          child: ListView.builder(
+                                            itemBuilder: (context, index) {
+                                              var newIndex = 41 + index;
+                                              bool initialValue = false;
+                                              toothList.forEach((element) {
+                                                if (element == newIndex) {
+                                                  initialValue = true;
+                                                }
+                                              });
+                                              return Tooth(
+                                                  index: newIndex,
+                                                  initialValue: initialValue,
+                                                  onTap: (toothNumber, isSelected) {
+                                                    // print(toothNumber);
+                                                    if (!isSelected) {
+                                                      toothList.remove(toothNumber);
+                                                    } else {
+                                                      toothList.add(toothNumber);
+                                                    }
+                                                    // toothList.add(toothNumber);
+                                                  });
+                                            },
+                                            itemCount: 8,
+                                            scrollDirection: Axis.horizontal,
+                                            shrinkWrap: true,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              child: CustomButton(
-                                  text: 'Done',
-                                  backgroundColor: kPrimaryColor,
-                                  onPressed: () {
-                                    var ori = MediaQuery.of(context).orientation;
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 300,
+                                child: CustomButton(
+                                    text: 'Done',
+                                    backgroundColor: kPrimaryColor,
+                                    onPressed: () {
+                                      var ori = MediaQuery.of(context).orientation;
 
-                                    if(ori == Orientation.landscape) {
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Switch back to Portrait Mode to Submit"),),);
-                                      Fluttertoast.showToast(
-                                          msg: "Switch back to Portrait Mode to Submit",
-                                          toastLength: Toast.LENGTH_LONG,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 3,
-                                          backgroundColor: Colors.red,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0
-                                      );
-                                    }
-                                    else{
-                                      widget.onDone(toothList);
-                                      Navigator.pop(context);
-                                    }
-                                  }),
-                              height: 60,
+                                      if(ori == Orientation.landscape) {
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Switch back to Portrait Mode to Submit"),),);
+                                        Fluttertoast.showToast(
+                                            msg: "Switch back to Portrait Mode to Submit",
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 3,
+                                            backgroundColor: Colors.red,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0
+                                        );
+                                      }
+                                      else{
+                                        widget.onDone(toothList);
+                                        Navigator.pop(context);
+                                      }
+                                    }),
+                                height: 60,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                    ),
                   ),
                 ),
           ),

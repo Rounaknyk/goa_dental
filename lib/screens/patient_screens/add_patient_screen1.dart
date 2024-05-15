@@ -363,7 +363,7 @@ class _AddPatientScreen1State extends State<AddPatientScreen1> {
                       },
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        hintText: 'Enter Address',
+                        hintText: 'Enter Residential Address',
                         border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black),
                         ),

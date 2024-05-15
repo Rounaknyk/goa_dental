@@ -25,7 +25,7 @@ class _ToothState extends State<Tooth> {
   Widget build(BuildContext context) {
 
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(2.0),
       child: GestureDetector(
         onTap: (){
           setState(() {
@@ -44,7 +44,7 @@ class _ToothState extends State<Tooth> {
           child: Center(
             child: Text(
               '${widget.index}',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 14),
             ),
           ),
         ),

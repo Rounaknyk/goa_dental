@@ -202,7 +202,7 @@ class _AddPatientScreen4State extends State<AddPatientScreen4> {
                         return MedicalCheckBox(title: e, onChanged: (val, title){
                           if(val) {
                             print("added");
-                            checkedList.add(title);
+                            checkedList.add('$title');
                             checkedList.forEach((element) {
                               print("checked $element");
                             });
@@ -213,6 +213,7 @@ class _AddPatientScreen4State extends State<AddPatientScreen4> {
                           else {
                             checkedList.remove(title);
                             Provider.of<AddPatientProvider>(context, listen: false).setList(checkedList);
+                            updateData();
                           }
                         }, isChecked: value,);
                       }).toList(),

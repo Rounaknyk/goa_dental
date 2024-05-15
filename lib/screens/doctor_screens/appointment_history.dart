@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:goa_dental_clinic/constants.dart';
+import 'package:goa_dental_clinic/models/completed_plan_model.dart';
 import 'package:goa_dental_clinic/screens/register_screen.dart';
 
 import '../../custom_widgets/appointment_card.dart';
 import '../../custom_widgets/appointment_history_card.dart';
+import '../../custom_widgets/record_appointment_card.dart';
 import '../login_screen.dart';
 
 class AppointmentHistory extends StatefulWidget {
@@ -67,6 +69,7 @@ class _AppointmentHistoryState extends State<AppointmentHistory> {
           padding: const EdgeInsets.all(8.0),
           child: StreamBuilder(
             builder: (context, snapshot) {
+
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(
@@ -75,61 +78,64 @@ class _AppointmentHistoryState extends State<AppointmentHistory> {
                 );
               } else {
                 appList.clear();
-                for (var app in snapshot.data!.docs) {
+                
+                List<CompletedPlanModel> cList = [];
+                for (var plan in snapshot.data!.docs) {
                   try {
-                    String orderId = app['orderId'];
-                    String status = app['status'];
-                    if(status != 'Cancelled') {
-                      if (DateTime
-                          .now()
-                          .millisecondsSinceEpoch >
-                          double.parse(app['endTimeInMil'])) {
-                        status = 'completed';
-                        orderId = app['endTimeInMil'];
-                      }
-                    }
-
-                    appList.add(AppointmentHistoryCard(
-                      patientName: app['patientName'],
-                        size: size,
-                        week: app['week'],
-                        date: app['date'],
-                        time: app['time'],
-                        onMorePressed: () {},
-                        doctorName: app['doctorName'],
-                        doctorUid: app['doctorUid'],
-                        status: status,
-                        patientUid: app['patientUid'],
-                        appId: app['appId'],
-                        pm: null,
-                        startTimeInMil: app['startTimeInMil'],
-                        month: app['month'],
-                        endTimeInMil: app['endTimeInMil'],
-                      orderId: orderId,
-                        refresh: () {}, plan: app['plan'], toothList: app['toothList'],));
-
+                    cList.add(
+                      CompletedPlanModel(
+                          plan: plan['plan'],
+                          toothList: plan['toothList'],
+                          time: plan['time'],
+                          patientUid: plan['patientUid'],
+                          patientName: plan['patientName'],
+                          docName: plan['docName'],
+                          docUid: plan['docUid'],
+                          note: plan['note'],
+                          week: plan['week']),
+                    );
+                    
                   } catch (e) {
                     print(e);
                     continue;
                   }
                 }
-                
-                appList.sort((a, b) => b.orderId.compareTo(a.orderId));
+                cList = cList.reversed.toList();
+                return ListView(
+                  children: cList.map((plan){
+                    final list = plan.time.split(' ');
+                    String date = list[0];
+                    String month = list[1];
 
-                return ListView.builder(
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: appList[index],
-                      );
-                    },
-                    itemCount: appList.length);
+                    return RecordAppointmentCard(
+                      size: size,
+                      patientName: plan.patientName,
+                      week: plan.week,
+                      date: date,
+                      time: plan.time,
+                      onMorePressed: () {},
+                      doctorName: plan.docName,
+                      doctorUid: plan.docUid,
+                      patientUid: plan.patientUid,
+                      appId: 'appId',
+                      pm: null,
+                      startTimeInMil:
+                      DateTime.now().millisecondsSinceEpoch.toString(),
+                      month: month,
+                      endTimeInMil:
+                      DateTime.now().millisecondsSinceEpoch.toString(),
+                      refresh: () {},
+                      plan: plan.plan,
+                      toothList: plan.toothList,
+                      status: 'Completed',
+                      note: plan.note,
+                    );
+                  }).toList(),
+                );
               }
             },
             stream: firestore
-                .collection('Doctors')
-                .doc(uid)
-                .collection('History')
+                .collection('Completed Plans')
                 .snapshots(),
           ),
         ),

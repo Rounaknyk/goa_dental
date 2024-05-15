@@ -58,13 +58,23 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
 
 
   createUser() async {
+    print("reachedddddddd");
     setState(() {
       isLoading = true;
       dataUploading = true;
     });
     if(uid.isEmpty || uid == '') {
       try {
-        accessToken = '${data1['patientName']}${data1['phoneNumber']}';
+        String finalName = '';
+        String patientName = data1['patientName'];
+        List<String> list = patientName.split(' ');
+        for(var a in list){
+          if(a.isNotEmpty){
+            finalName += a;
+          }
+        }
+
+        accessToken = '${finalName}${data1['phoneNumber']}';
         FirebaseAuth auth = await FirebaseAuth.instance;
         await auth.createUserWithEmailAndPassword(email: '${accessToken}@gmail.com', password: '${accessToken}')
             .then((credentials) {
@@ -142,7 +152,6 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
           String dateMonth = "${DateTimeParser(DateTime.now().toString()).date} ${DateTimeParser(DateTime.now().toString()).getMonth()} ${DateTimeParser(DateTime.now().toString()).getYear()}";
 
           List<String> disPresentInDb = [];
-
 
           // print(uid);
 

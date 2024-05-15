@@ -32,6 +32,7 @@ import '../../custom_widgets/image_container.dart';
 import '../../custom_widgets/long_image_container.dart';
 import '../../custom_widgets/search_box.dart';
 import '../../models/app_model.dart';
+import 'check_records_screen.dart';
 import 'manage_appointments_screen.dart';
 import 'package:provider/provider.dart' as pro;
 
@@ -205,13 +206,17 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  checkRecords(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CheckRecordsScreen()));
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
     controller.dispose();
     super.dispose();
   }
-  
+
   addPatient(){
     Navigator.pop(context);
     Navigator.push(
@@ -279,6 +284,11 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.person),
               title: Text('Add patient'),
               onTap: () => addPatient()
+            ),
+            ListTile(
+                leading: Icon(Icons.date_range),
+                title: Text('Check records'),
+                onTap: () => checkRecords()
             ),
             ListTile(
               leading: Icon(Icons.logout),
